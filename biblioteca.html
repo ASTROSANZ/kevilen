@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Freud Fofa</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary: #FF85A2;
+            --secondary: #FFD6E0;
+            --accent: #A0E7E5;
+            --dark: #333;
+            --light: #FFF9FB;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: radial-gradient(circle at 10% 20%, var(--secondary) 0%, var(--light) 90%);
+        }
+        
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        header {
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        .book-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .book-item {
+            background-color: white;
+            border-radius: 20px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: left;
+        }
+        
+        .book-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .book-cover {
+            width: 80px;
+            height: 110px;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .book-info {
+            flex-grow: 1;
+        }
+        
+        .book-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+        
+        .book-author {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
+        
+        .pdf-viewer-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .pdf-viewer {
+            width: 90%;
+            height: 90%;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pdf-toolbar {
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .close-pdf {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .pdf-embed {
+            flex-grow: 1;
+            border: none;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        
+        .back-button {
+            margin-top: 2.5rem;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-button:hover {
+            background-color: #e6738f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .book-item {
+                padding: 0.8rem;
+                gap: 1rem;
+            }
+            
+            .book-cover {
+                width: 70px;
+                height: 100px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Livros de Freud <span>🌸</span></h1>
+            <p class="subtitle">Clique em um livro para ler</p>
+        </header>
+        
+        <div class="book-list">
+            <!-- LIVRO 1 - Adicione sua capa e PDF -->
+            <div class="book-item" onclick="openPdf('livros/interpretacao_sonhos.pdf', 'A Interpretação dos Sonhos')">
+                <div class="book-cover">
+                    <img src="capas/interpretacao_sonhos.jpg" alt="Capa A Interpretação dos Sonhos">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">A Interpretação dos Sonhos</div>
+                    <div class="book-author">Sigmund Freud</div>
+                    <div class="book-year">1899</div>
+                </div>
+                <div class="book-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+            </div>
+            
+            <!-- LIVRO 2 - Adicione sua capa e PDF -->
+            <div class="book-item" onclick="openPdf('livros/mal_estar.pdf', 'O Mal-Estar na Civilização')">
+                <div class="book-cover">
+                    <img src="capas/mal_estar.jpg" alt="Capa O Mal-Estar na Civilização">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">O Mal-Estar na Civilização</div>
+                    <div class="book-author">Sigmund Freud</div>
+                    <div class="book-year">1930</div>
+                </div>
+                <div class="book-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+            </div>
+            
+            <!-- LIVRO 3 - Adicione sua capa e PDF -->
+            <div class="book-item" onclick="openPdf('livros/psicopatologia.pdf', 'Psicopatologia da Vida Cotidiana')">
+                <div class="book-cover">
+                    <img src="capas/psicopatologia.jpg" alt="Capa Psicopatologia da Vida Cotidiana">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">Psicopatologia da Vida Cotidiana</div>
+                    <div class="book-author">Sigmund Freud</div>
+                    <div class="book-year">1901</div>
+                </div>
+                <div class="book-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+            </div>
+            
+            <!-- Adicione mais livros conforme necessário -->
+        </div>
+        
+        <button class="back-button" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i> Voltar ao Hub
+        </button>
+    </div>
+    
+    <!-- Visualizador de PDF -->
+    <div class="pdf-viewer-container" id="pdfViewer">
+        <div class="pdf-viewer">
+            <div class="pdf-toolbar">
+                <span id="pdfTitle">Visualizador de PDF</span>
+                <button class="close-pdf" onclick="closePdf()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <iframe class="pdf-embed" id="pdfEmbed" frameborder="0"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        function openPdf(pdfUrl, title) {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfEmbed = document.getElementById('pdfEmbed');
+            const pdfTitle = document.getElementById('pdfTitle');
+            
+            // Atualiza o título e carrega o PDF
+            pdfTitle.textContent = title;
+            pdfEmbed.src = pdfUrl;
+            
+            // Mostra o visualizador
+            pdfViewer.style.display = 'flex';
+            
+            // Desativa o scroll da página principal
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePdf() {
+            const pdfViewer = document.getElementById('pdfViewer');
+            const pdfEmbed = document.getElementById('pdfEmbed');
+            
+            // Esconde o visualizador
+            pdfViewer.style.display = 'none';
+            
+            // Para de carregar o PDF
+            pdfEmbed.src = '';
+            
+            // Ativa o scroll da página principal
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>

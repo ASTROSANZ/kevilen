@@ -1,0 +1,120 @@
+/* Resetando margens e paddings para manter tudo alinhado */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fundo rosinha */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffd6e0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Estilizando o cabeçalho */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Imagens ao lado do título */
+.header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* Lista de perguntas com espaço para gif */
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* GIF ao lado da lista */
+.gif {
+    width: 80px;
+    height: auto;
+}
+
+/* Estilizando a lista */
+#lista-perguntas {
+    list-style: none;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: left;
+}
+
+#lista-perguntas li {
+    padding: 10px;
+    margin: 5px 0;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Campo de input e botão */
+.input-area {
+    margin-top: 20px;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+    text-align: center;
+}
+
+button {
+    background-color: #d63384;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #a02665;
+}
+
+/* Resultado */
+#resultado {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gif {
+        display: none;
+    }
+
+    input {
+        width: 90%;
+    }
+}
